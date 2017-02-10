@@ -1,0 +1,80 @@
+//城市选择
+function citySelection(p,c,a){
+    for(var i=0;i< prolist.provinces.length;i++){
+        p.append("<option value='"+prolist.provinces[i].id+"'>"+prolist.provinces[i].name+"</option>");
+    }
+    p.on("change ready",function(){
+        findCity(p,c,a);
+    });
+    c.on("change ready",function(){
+        findArea(p,c,a);
+    });
+}
+//城市列表显示
+/*直辖市三级显示*/
+function findCity(p,c,a) {
+ var pid = p.val();
+ c.empty(); //清空城市列表
+ a.empty(); //清空区域列表
+ c.append("<option value=''>选择城市</option>");
+ a.append("<option value=''>选择地区</option>");
+
+ for (var i = 0; i < prolist.provinces.length; i++) {
+ if (prolist.provinces[i].id == pid) {
+ for (var j = 0; j < prolist.provinces[i].cityList.length; j++) {
+ //console.info(prolist.provinces[i].cityList.length);
+ c.append("<option value='" + prolist.provinces[i].cityList[j].id + "'>" + prolist.provinces[i].cityList[j].name + "</option>");
+ }
+ }
+ }
+ }
+/*直辖市二级显示
+function findCity(p,c,a) {
+    var pid =p.val();
+    c.empty(); //清空城市列表
+    a.empty(); //清空区域列表
+    c.append("<option value='0'>----选择城市----</option>");
+    a.append("<option value='0'>----选择地区----</option>");
+    for (var i = 0; i < prolist.provinces.length; i++) {
+        if (prolist.provinces[i].id == pid) {
+            var citys=prolist.provinces[i].cityList.length;
+            if(citys<2){
+                for (var u = 0; u < citys; u++) {
+                    a.hide();
+                    for (var b = 0; b < prolist.provinces[i].cityList[u].areaList.length; b++) {
+                        c.append("<option value='" +prolist.provinces[i].cityList[u].areaList[b].id + "'>" + prolist.provinces[i].cityList[u].areaList[b].name  + "</option>");
+                    }
+                }
+            }else{
+                for (var j = 0; j < citys; j++) {
+                    a.show();
+                    c.append("<option value='" + prolist.provinces[i].cityList[j].id + "'>" + prolist.provinces[i].cityList[j].name + "</option>");
+                }
+            }
+        }
+    }
+}
+//地区*///列表显示
+function findArea(p, c ,a) {
+    var pid = p.val();
+    var city = c.val();
+    a.empty(); //清空区域列表
+    a.append("<option value=''>选择地区</option>");
+    for (var i = 0; i < prolist.provinces.length; i++) {
+        if (prolist.provinces[i].id == pid) {
+            for (var j = 0; j < prolist.provinces[i].cityList.length; j++) {
+                if (prolist.provinces[i].cityList[j].id == city) {
+                    for (var b = 0; b < prolist.provinces[i].cityList[j].areaList.length; b++) {
+                        a.append("<option value='" +prolist.provinces[i].cityList[j].areaList[b].id + "'>" + prolist.provinces[i].cityList[j].areaList[b].name  + "</option>");
+                    }
+                }
+            }
+        }
+    }
+}
+/*/html页面中调用/*/
+<script type="text/javascript">
+    $(function(){
+        citySelection($("#provinceId"),$("#cityId"),$("#areaId"));
+    });
+</script>
