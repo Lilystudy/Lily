@@ -72,6 +72,12 @@ function findArea(p, c ,a) {
         }
     }
 }
+
+
+
+
+
+
 /*/html页面中调用/*/
 <script type="text/javascript">
     $(function(){
