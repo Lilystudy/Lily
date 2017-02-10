@@ -79,6 +79,9 @@ function findArea(p, c ,a) {
 
 
 /*/html页面中调用/*/
+<!--/*****城市选择******/-->
+<script src="js/area.js"></script>
+<script src="js/city.js"></script>
 <script type="text/javascript">
     $(function(){
         citySelection($("#provinceId"),$("#cityId"),$("#areaId"));
